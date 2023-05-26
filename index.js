@@ -5,12 +5,9 @@ const PORT = process.env.PORT || 3000;
 
 let channel, connection;
 
-
-
-
 app.use(express.json());
 connectQueue();
-app.get("/send-msg", (req,res) => {
+app.get("/send-msg", (req, res) => {
 
     const data = {
         title: "Queue Message",
@@ -26,12 +23,12 @@ app.listen(PORT, () => console.log(`Server on ${PORT}`));
 
 
 async function connectQueue() {
-    try{
+    try {
         connection = await amqp.connect("amqp://localhost:5672");
         channel = await connection.createChannel();
 
         await channel.assertQueue("test-queue");
-    } catch(err) {
+    } catch (err) {
         console.log(err)
     }
 }
